@@ -1,4 +1,4 @@
-module github.com/temmy-alex/final-assignment
+module github.com/radityasurya/rakamin-final-assignment
 
 go 1.18
 

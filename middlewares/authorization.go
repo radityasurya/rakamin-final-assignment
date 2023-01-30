@@ -7,8 +7,8 @@ import (
 	"github.com/dgrijalva/jwt-go"
 
 	"github.com/gin-gonic/gin"
-	"github.com/temmy-alex/final-assignment/database"
-	"github.com/temmy-alex/final-assignment/models"
+	"github.com/radityasurya/rakamin-final-assignment/database"
+	"github.com/radityasurya/rakamin-final-assignment/models"
 )
 
 func PhotoAuthorization() gin.HandlerFunc {

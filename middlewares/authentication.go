@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/temmy-alex/final-assignment/helpers"
+	"github.com/radityasurya/rakamin-final-assignment/helpers"
 )
 
 func Authentication() gin.HandlerFunc {

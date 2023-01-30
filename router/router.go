@@ -2,8 +2,8 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/temmy-alex/final-assignment/controllers"
-	"github.com/temmy-alex/final-assignment/middlewares"
+	"github.com/radityasurya/rakamin-final-assignment/controllers"
+	"github.com/radityasurya/rakamin-final-assignment/middlewares"
 )
 
 func StartApp() *gin.Engine {

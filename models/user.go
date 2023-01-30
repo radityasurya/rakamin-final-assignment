@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/luthfikw/govalidator"
-	"github.com/temmy-alex/final-assignment/helpers"
+	"github.com/radityasurya/rakamin-final-assignment/helpers"
 	"gorm.io/gorm"
 )
 
