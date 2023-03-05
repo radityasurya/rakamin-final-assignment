@@ -21,7 +21,7 @@ func ConnectDB(config *config.Config) {
 	if err != nil {
 		log.Fatal("Failed to connect to the Database: ", err)
 	}
-	fmt.Println("? Connected Successfully to the Database!")
+	fmt.Println("- Connected Successfully to the Database!")
 }
 
 func GetDB() *gorm.DB {
@@ -29,7 +29,7 @@ func GetDB() *gorm.DB {
 }
 
 func MigrateDB() {
-	fmt.Println("Starting migration...")
+	fmt.Println("- Starting migration...")
 	DB.Debug().AutoMigrate(&models.User{})
-	fmt.Println("Migration complete!")
+	fmt.Println("- Migration complete!")
 }
