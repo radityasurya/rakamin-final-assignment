@@ -4,7 +4,7 @@ import "github.com/spf13/viper"
 
 type Config struct {
 	DBHost         string `mapstructure:"DB_HOST"`
-	DBUserName     string `mapstructure:"DB_USER"`
+	DBUsername     string `mapstructure:"DB_USER"`
 	DBUserPassword string `mapstructure:"DB_PASSWORD"`
 	DBName         string `mapstructure:"DB_NAME"`
 	DBPort         string `mapstructure:"DB_PORT"`
