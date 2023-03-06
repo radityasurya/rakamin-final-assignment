@@ -30,6 +30,6 @@ func GetDB() *gorm.DB {
 
 func MigrateDB() {
 	fmt.Println("- Starting migration...")
-	DB.Debug().AutoMigrate(&models.User{})
+	DB.Debug().AutoMigrate(&models.User{}, &models.Photo{})
 	fmt.Println("- Migration complete!")
 }

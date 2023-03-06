@@ -131,3 +131,57 @@ func (uc *UserController) GetMe(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": gin.H{"user": userResponse}})
 }
+
+func (uc *UserController) UpdateUser(ctx *gin.Context) {
+	userId := ctx.Param("userId")
+
+	var payload *models.UpdateUser
+	if err := ctx.ShouldBindJSON(&payload); err != nil {
+		ctx.JSON(http.StatusBadGateway, gin.H{"status": "fail", "message": err.Error()})
+		return
+	}
+	var updatedUser models.User
+	result := uc.DB.First(&updatedUser, "id = ?", userId)
+	if result.Error != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{"status": "fail", "message": "No user with that title exists"})
+		return
+	}
+	now := time.Now()
+	postToUpdate := models.User{
+		Username:  payload.Username,
+		Email:     payload.Email,
+		Password:  payload.Password,
+		CreatedAt: updatedUser.CreatedAt,
+		UpdatedAt: now,
+	}
+
+	uc.DB.Model(&updatedUser).Updates(postToUpdate)
+
+	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": updatedUser})
+}
+
+func (uc *UserController) FindUserById(ctx *gin.Context) {
+	userId := ctx.Param("userId")
+
+	var user models.User
+	result := uc.DB.First(&user, "id = ?", userId)
+	if result.Error != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{"status": "fail", "message": "No user with that ID exists"})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": user})
+}
+
+func (uc *UserController) DeleteUser(ctx *gin.Context) {
+	userId := ctx.Param("userId")
+
+	result := uc.DB.Delete(&models.User{}, "id = ?", userId)
+
+	if result.Error != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{"status": "fail", "message": "No post with that title exists"})
+		return
+	}
+
+	ctx.JSON(http.StatusNoContent, nil)
+}

@@ -5,7 +5,7 @@ import (
 )
 
 type User struct {
-	ID        int    `gorm:"primaryKey"`
+	ID        uint   `gorm:"primaryKey"`
 	Username  string `gorm:"type:varchar(30);not null"`
 	Email     string `gorm:"uniqueIndex;not null"`
 	Password  string `gorm:"not null"`
@@ -26,9 +26,17 @@ type LoginInput struct {
 }
 
 type UserResponse struct {
-	ID        int       `json:"id,omitempty"`
+	ID        uint      `json:"id,omitempty"`
 	Username  string    `json:"username,omitempty"`
 	Email     string    `json:"email,omitempty"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
+}
+
+type UpdateUser struct {
+	Username  string    `json:"username,omitempty"`
+	Email     string    `json:"email,omitempty"`
+	Password  string    `json:"password,omitempty"`
+	CreateAt  time.Time `json:"created_at,omitempty"`
+	UpdatedAt time.Time `json:"updated_at,omitempty"`
 }

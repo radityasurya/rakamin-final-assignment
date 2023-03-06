@@ -10,17 +10,20 @@ import (
 	"github.com/radityasurya/btpn-syariah-final/config"
 	"github.com/radityasurya/btpn-syariah-final/controllers"
 	"github.com/radityasurya/btpn-syariah-final/database"
-	"github.com/radityasurya/btpn-syariah-final/routes"
+	"github.com/radityasurya/btpn-syariah-final/router"
 )
 
 var (
 	server *gin.Engine
 
 	AuthController      controllers.AuthController
-	AuthRouteController routes.AuthRouteController
+	AuthRouteController router.AuthRouteController
 
 	UserController      controllers.UserController
-	UserRouteController routes.UserRouteController
+	UserRouteController router.UserRouteController
+
+	PhotoController      controllers.PhotoController
+	PhotoRouteController router.PhotoRouteController
 )
 
 func main() {
@@ -33,10 +36,13 @@ func main() {
 	database.ConnectDB(&config)
 
 	AuthController = controllers.NewAuthController(database.DB)
-	AuthRouteController = routes.NewAuthRouteController(AuthController)
+	AuthRouteController = router.NewAuthRouteController(AuthController)
 
 	UserController = controllers.NewUserController(database.DB)
-	UserRouteController = routes.NewRouteUserController(UserController)
+	UserRouteController = router.NewRouteUserController(UserController)
+
+	PhotoController = controllers.NewPhotoController(database.DB)
+	PhotoRouteController = router.NewRoutePhotoController(PhotoController)
 
 	server = gin.Default()
 
@@ -54,6 +60,7 @@ func main() {
 
 	AuthRouteController.AuthRoute(router)
 	UserRouteController.UserRoute(router)
+	PhotoRouteController.PhotoRoute(router)
 
 	log.Fatal(server.Run(":" + config.ServerPort))
 }
