@@ -13,7 +13,8 @@ type Config struct {
 	DBName     string `mapstructure:"POSTGRES_DB"`
 	DBPort     string `mapstructure:"POSTGRES_PORT"`
 
-	ServerPort string `mapstructure:"PORT"`
+	ServerPort   string `mapstructure:"PORT"`
+	ClientOrigin string `mapstructure:"CLIENT_ORIGIN"`
 
 	AccessTokenPrivateKey  string        `mapstructure:"ACCESS_TOKEN_PRIVATE_KEY"`
 	AccessTokenPublicKey   string        `mapstructure:"ACCESS_TOKEN_PUBLIC_KEY"`
