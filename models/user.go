@@ -1,12 +1,36 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
 
 type User struct {
-	ID        uint       `gorm:"primaryKey" json:"id"`
-	Username  string     `gorm:"not null" json:"username" form:"username" valid:"required~Your username is required"`
-	Email     string     `gorm:"not null;uniqueIndex" json:"email" form:"email" valid:"required~Your email is required,email~Invalid email format"`
-	Password  string     `gorm:"not null" json:"-" form:"password" valid:"required~Your password is required,minstringlength(6)~Password has to have a minimum length of 6 characters"`
-	CreatedAt *time.Time `json:"-,omitempty"`
-	UpdatedAt *time.Time `json:"-,omitempty"`
+	ID        uuid.UUID `gorm:"type:uuid;default:uuid_generate_v4();primary_key"`
+	Username  string    `gorm:"type:varchar(30);not null"`
+	Email     string    `gorm:"uniqueIndex;not null"`
+	Password  string    `gorm:"not null"`
+	CreatedAt *time.Time
+	UpdatedAt *time.Time
+}
+
+type RegisterInput struct {
+	Username        string `json:"username" binding:"required,min=6,max=30"`
+	Email           string `json:"email" binding:"required"`
+	Password        string `json:"password" binding:"required,min=8"`
+	PasswordConfirm string `json:"passwordConfirm" binding:"required"`
+}
+
+type LoginInput struct {
+	Email    string `json:"email"  binding:"required"`
+	Password string `json:"password"  binding:"required"`
+}
+
+type UserResponse struct {
+	ID        uuid.UUID `json:"id,omitempty"`
+	Username  string    `json:"username,omitempty"`
+	Email     string    `json:"email,omitempty"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
